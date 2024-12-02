@@ -1,0 +1,108 @@
+body {
+  margin: 0;
+}
+
+.nav {
+  width: 100%;
+  background-color: #121212;
+  color: white;
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  display: flex;
+  justify-content: space-evenly;
+  list-style: none;
+  text-align: center;
+  align-items: center;
+  font-size: 1.6rem;
+}
+.nav a {
+  width: 25%;
+  text-decoration: none;
+  height: inherit;
+}
+.nav a:hover {
+  background-color: #16425b;
+}
+.nav a:active {
+  color: black;
+  background-color: #d9dcd6;
+}
+a:link,
+a:active,
+a:visited {
+  color: white;
+}
+
+/* Targeting only the form with the id 'account-form' */
+#account-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto; /* Centering the form */
+}
+
+#account-form h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+#account-form .form-group {
+  margin-bottom: 15px;
+}
+
+#account-form label {
+  font-size: 14px;
+  color: #555;
+  display: block;
+  margin-bottom: 5px;
+}
+
+#account-form input {
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  margin-top: 5px;
+  background-color: #f9f9f9;
+}
+
+#account-form input:focus {
+  border-color: #3498db;
+  outline: none;
+  background-color: #fff;
+}
+
+#account-form button {
+  width: 100%;
+  padding: 12px;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+#account-form button:hover {
+  background-color: #2980b9;
+}
+
+#account-form button:active {
+  background-color: #21618c;
+}
+
+@media (max-width: 500px) {
+  #account-form {
+    padding: 15px;
+  }
+
+  #account-form h2 {
+    font-size: 20px;
+  }
+}
