@@ -12,46 +12,53 @@
   <body>
     <header>
       <nav>
-        <div class="nav">
-          <a href="{{ url_for('home') }}">Home</a>  
-          <a href="{{ url_for('xss') }}">XSS Prevention</a>
-          <a href="{{ url_for('injection') }}">SQL Injection</a>
-          {% if not loggedIn %}
-            <a href="{{ url_for('login') }}">Login</a> 
-            <a href="{{ url_for('register') }}">Register</a> 
+        <div class="nav-container">
+          <a class="nav-link" href="{{ url_for('home') }}">Home</a>  
+          {% if loggedIn %}
+            <a class="nav-link" href="{{ url_for('xss') }}">XSS Prevention</a>
+            <a class="nav-link" href="{{ url_for('injection') }}">SQL Injection</a>
           {% endif %}
-
+          {% if not loggedIn %}
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a> 
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a> 
+          {% endif %}
         </div>
       </nav>
+      
     </header>
-    <main>
-      <h3>{% if loggedIn %}
-        Welcome {{message}}
-        {% endif %}
-       </h3>
-       <h4>Random Text</h4>
-       <p>
-        This is the page for showcasing prevention methods for XSS attacks.
-       </p>
-       <div>
-        <p>
-            Below is an example of text input vulnerable to a XSS attack:
+    <main id="xss-showcase">
+      {% if loggedIn %}
+        <h3 class="header">XSS Showcase</h3>
+        <p class="description">
+          This is the page for showcasing prevention methods for XSS attacks.
         </p>
-        <form action="/xss_bad" method="POST">
-            <label for="comment">Enter Comment:</label>
-            <input type="text" id="comment" name="comment">
-            <button type="submit">Submit</button>
-        </form>
-        <p>
+        <div class="example-section">
+          <p class="example-intro">
+            Below is an example of text input vulnerable to an XSS attack:
+          </p>
+          <form class="example-form vulnerable-form" action="/xss_bad" method="POST">
+            <label class="form-label" for="bad-comment">Enter Comment:</label>
+            <input class="form-input" type="text" id="bad-comment" name="comment">
+            <button class="form-button" type="submit">Submit</button>
+            <p class="try-this">Try This: &lt;script&gt;alert(&#39;XSS Vulnerability!&#39;);&lt;/script&gt;</p>
+          </form>
+          <p class="example-intro">
             Below is an example of text input that is sanitized and not vulnerable to an XSS attack.
-        </p>
-        <form action="/xss_good" method="POST">
-            <label for="comment">Enter Comment:</label>
-            <input type="text" id="comment" name="comment">
-            <button type="submit">Submit</button>
-        </form>
-       </div>
+          </p>
+          <form class="example-form safe-form" action="/xss_good" method="POST">
+            <label class="form-label" for="good-comment">Enter Comment:</label>
+            <input class="form-input" type="text" id="good-comment" name="comment">
+            <button class="form-button" type="submit">Submit</button>
+            {% if message %}
+              <p class="user-message">This is what you tried to attack us with: {{ message }}</p>
+            {% endif %}
+          </form>
+        </div>
+      {% else %}
+        <span class="not-authorized">Not Authorized</span>
+      {% endif %}
     </main>
+    
     <footer>
       {% if loggedIn %}
       <form method="post">

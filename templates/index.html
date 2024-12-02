@@ -12,27 +12,56 @@
   <body>
     <header>
       <nav>
-        <div class="nav">
-          <a href="{{ url_for('home') }}">Home</a>  
-          <a href="{{ url_for('xss') }}">XSS Prevention</a>
-          <a href="{{ url_for('injection') }}">SQL Injection</a>
-          {% if not loggedIn %}
-            <a href="{{ url_for('login') }}">Login</a> 
-            <a href="{{ url_for('register') }}">Register</a> 
+        <div class="nav-container">
+          <a class="nav-link" href="{{ url_for('home') }}">Home</a>  
+          {% if loggedIn %}
+            <a class="nav-link" href="{{ url_for('xss') }}">XSS Prevention</a>
+            <a class="nav-link" href="{{ url_for('injection') }}">SQL Injection</a>
           {% endif %}
-
+          {% if not loggedIn %}
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a> 
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a> 
+          {% endif %}
         </div>
       </nav>
     </header>
-    <main>
-      <h3>{% if loggedIn %}
-        Welcome {{message}}
-        {% endif %}
-       </h3>
-       <h4>Random Text</h4>
-       <p>
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-       </p>
+    <main id="dashboard-main">
+      {% if loggedIn %}
+        <section class="welcome-section">
+          <h3>Welcome, {{ message }}!</h3>
+          <p>Here's an overview of your account and recent activities.</p>
+        </section>
+  
+        <section class="stats-section">
+          <div class="stat-card">
+            <h4>Total Posts</h4>
+            <p>120</p>
+          </div>
+          <div class="stat-card">
+            <h4>Followers</h4>
+            <p>350</p>
+          </div>
+          <div class="stat-card">
+            <h4>Following</h4>
+            <p>180</p>
+          </div>
+        </section>
+  
+        <section class="recent-activities">
+          <h4>Recent Activities</h4>
+          <ul class="activities-list">
+            <li>Posted a new comment on <strong>Article A</strong>.</li>
+            <li>Liked <strong>Post B</strong>.</li>
+            <li>Updated profile information.</li>
+            <li>Shared <strong>Resource C</strong> with friends.</li>
+          </ul>
+        </section>
+      {% else %}
+        <section class="welcome-section">
+          <h3>Welcome to Our Platform!</h3>
+          <p>Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('register') }}">register</a> to continue.</p>
+        </section>
+      {% endif %}
     </main>
     <footer>
       {% if loggedIn %}

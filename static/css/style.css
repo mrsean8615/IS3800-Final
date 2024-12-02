@@ -2,36 +2,53 @@ body {
   margin: 0;
 }
 
-.nav {
+/* Navigation bar container */
+.nav-container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
   width: 100%;
   background-color: #121212;
-  color: white;
-  margin: 0;
-  padding: 0;
-  height: 50px;
-  display: flex;
-  justify-content: space-evenly;
-  list-style: none;
-  text-align: center;
-  align-items: center;
-  font-size: 1.6rem;
+  padding: 0 1rem;
+  height: 60px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-.nav a {
-  width: 25%;
+
+/* Navigation links */
+.nav-link {
+  color: white;
   text-decoration: none;
-  height: inherit;
+  font-size: 1.2rem;
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease-in-out;
+  border-radius: 5px;
 }
-.nav a:hover {
-  background-color: #16425b;
-}
-.nav a:active {
-  color: black;
-  background-color: #d9dcd6;
-}
-.nav a:link,
-.nav a:active,
-.nav a:visited {
+
+/* Hover and active states */
+.nav-link:hover {
+  background-color: #1a73e8;
   color: white;
+  transform: scale(1.1);
+}
+
+.nav-link:active {
+  background-color: #0f57b5;
+  color: #f1f1f1;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;
+    height: auto;
+    padding: 1rem 0;
+  }
+  .nav-link {
+    padding: 0.8rem;
+    width: 100%;
+    text-align: center;
+  }
 }
 
 /* Targeting only the form with the id 'account-form' */
@@ -126,4 +143,219 @@ body {
 #logout:hover {
   background-color: #00a6fb;
   color: white;
+}
+
+/* Main container styling */
+#xss-showcase {
+  font-family: Arial, sans-serif;
+  margin: 2rem auto;
+  padding: 1rem;
+  max-width: 600px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #f9f9f9;
+}
+
+/* Header styling */
+.header {
+  text-align: center;
+  color: #333;
+  margin-bottom: 1rem;
+}
+
+/* Description text */
+.description {
+  text-align: center;
+  color: #666;
+  margin-bottom: 2rem;
+}
+
+/* Section containing examples */
+.example-section {
+  margin-bottom: 2rem;
+}
+
+/* Introductory text for examples */
+.example-intro {
+  margin: 1rem 0;
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Form styles */
+.example-form {
+  margin-bottom: 1.5rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+}
+
+.form-label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+}
+
+.form-input {
+  width: calc(100% - 2rem);
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-button {
+  padding: 0.5rem 1rem;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-button:hover {
+  background-color: #0056b3;
+}
+
+/* Try This example prompt */
+.try-this {
+  font-size: 0.9rem;
+  color: #888;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* User message */
+.user-message {
+  margin-top: 1rem;
+  color: #007bff;
+  font-style: italic;
+}
+
+/* Not Authorized text */
+.not-authorized {
+  display: block;
+  text-align: center;
+  color: red;
+  font-weight: bold;
+}
+
+/* Main Dashboard Styling */
+#dashboard-main {
+  max-width: 1200px;
+  margin: 30px auto;
+  padding: 0 20px;
+}
+
+/* Welcome Section */
+.welcome-section {
+  background-color: #ffffff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.welcome-section h3 {
+  font-size: 2rem;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.welcome-section p {
+  font-size: 1.1rem;
+  color: #555;
+}
+
+.welcome-section a {
+  color: #1a73e8;
+  text-decoration: none;
+}
+
+.welcome-section a:hover {
+  text-decoration: underline;
+}
+
+/* Statistics Section */
+.stats-section {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.stat-card {
+  background-color: #ffffff;
+  flex: 1;
+  min-width: 200px;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.stat-card h4 {
+  font-size: 1.2rem;
+  color: #1a73e8;
+  margin-bottom: 10px;
+}
+
+.stat-card p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Recent Activities Section */
+.recent-activities {
+  background-color: #ffffff;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.recent-activities h4 {
+  font-size: 1.5rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+}
+
+.activities-list {
+  list-style: none;
+}
+
+.activities-list li {
+  padding: 10px 0;
+  border-bottom: 1px solid #e0e0e0;
+  font-size: 1rem;
+  color: #555;
+}
+
+.activities-list li:last-child {
+  border-bottom: none;
+}
+
+.activities-list li strong {
+  color: #1a73e8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .stats-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .nav-container {
+    flex-direction: column;
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .nav-link {
+    margin: 5px 0;
+  }
 }
