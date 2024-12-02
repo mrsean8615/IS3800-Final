@@ -6,6 +6,7 @@ def register_user(fname, lname, age, email, password):
 
         conn, cursor = db()
 
+        # pbkdf2:sha256
         hashed_password = generate_password_hash(password)
 
         query = """

@@ -131,7 +131,8 @@ def injection_bad():
 
     if result:
         message = "Login Successful!"
-        return render_template('injection.html', badmessage=message, loggedIn = session.get('loggedIn', False))
+        response_message = result
+        return render_template('injection.html', badmessage=message, response_message = response_message, loggedIn = session.get('loggedIn', False))
 
     else:
         message = "Invalid Credentials!"
@@ -143,7 +144,10 @@ def injection_good():
     conn, cursor = db()
     email = request.form['email']
     password = request.form['password']
+
+    # SELECT * FROM users WHERE email = '' OR '1'='1' AND password = ''
     query = "SELECT * FROM users WHERE email = ? and password = ?"
+
     result = cursor.execute(query, (email, password)).fetchall()
     if result:
         message = f"Login Successful!"

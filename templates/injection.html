@@ -26,6 +26,7 @@
       </nav>
     </header>
     <main id="sql-injection-showcase">
+      {% if loggedIn %}
       <h3 class="header">SQL Injection Examples</h3>
       <p class="description">
         This page demonstrates examples of SQL injection vulnerabilities and prevention methods.
@@ -42,12 +43,13 @@
           <label class="form-label" for="bad-password">Password:</label>
           <input class="form-input" type="password" id="bad-password" name="password">
           <button class="form-button" type="submit">Login</button>
-          <p class="try-this">Try this is password field: ' OR '1'='1' --</p>
+          <p class="try-this">Try this either field: ' OR '1'='1' --</p>
         </form>
         <p class="example-intro">
           In the bad example above, SQL injection could be used to bypass the login check.
         </p>
         <p class="error-message">{{ badmessage }}</p>
+        <p class="error-message"> {{response_message}}</p>
       </div>
       
       <!-- Good Example Section -->
@@ -66,6 +68,9 @@
           {% endif %}
         </form>
       </div>
+      {% else %}
+        <span class="not-authorized">Not Authorized</span>
+      {% endif %}
     </main>
     
     
