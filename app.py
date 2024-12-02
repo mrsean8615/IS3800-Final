@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, session, redirect, url_for
-from markupsafe import Markup
+from markupsafe import Markup, escape
 from db.register import register_user
 from db.login import login_user
 from test_input import regex_email, regex_password   
@@ -89,6 +89,30 @@ def register():
 
     title = 'Register'
     return render_template('register.html', title = title)
+
+@app.route('/xss', methods=['GET', 'POST'])
+def xss():
+    title = 'XSS Prevention'
+    return render_template('xss.html', title = title, loggedIn = session.get('loggedIn', False))
+
+@app.route('/xss_bad', methods=['POST'])
+def xss_bad():
+    comment = request.form['comment']
+    return f"{comment}"
+
+@app.route('/xss_good', methods=['POST'])
+def xss_good():
+    comment = request.form['comment']
+    safeComment = escape(comment)
+    return f"{safeComment}"
+
+@app.route('/injection', methods=['GET', 'POST'])
+def injection():
+    if request.method == 'POST':
+        logout()
+    title = 'XSS Prevention'
+    message = session.get('email', '')
+    return render_template('injection.html', title = title, message = message, loggedIn = session.get('loggedIn', False))
 
 if __name__ == "__main__":
     app.run(debug=True)
