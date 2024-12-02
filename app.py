@@ -2,7 +2,10 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from markupsafe import Markup, escape
 from db.register import register_user
 from db.login import login_user
-from test_input import regex_email, regex_password   
+from test_input import regex_email, regex_password  
+
+from db.db import dbConnect
+from db.createdb import insertUsers
 
 app = Flask(__name__)
 
@@ -110,9 +113,36 @@ def xss_good():
 def injection():
     if request.method == 'POST':
         logout()
-    title = 'XSS Prevention'
-    message = session.get('email', '')
-    return render_template('injection.html', title = title, message = message, loggedIn = session.get('loggedIn', False))
+    title = 'SQL Injection'
+    return render_template('injection.html', title = title, loggedIn = session.get('loggedIn', False))
+
+@app.route('/injection_bad', methods=['POST'])
+def injection_bad():
+    conn, cursor = dbConnect()
+    email = request.form['email']
+    password = request.form['password']
+    query = f"SELECT * FROM users WHERE email = '{email}' AND password = '{password}'"
+    result = cursor.execute(query).fetchall()
+
+    print("Query Executed: ", query)
+    print("Result: ", result)
+
+    if result:
+        return "Login Successful!"
+    else:
+        return "Invalid Credentials!"
+    
+@app.route('/injection_good', methods=['POST'])
+def injection_good():
+    conn, cursor = dbConnect()
+    email = request.form['email']
+    password = request.form['password']
+    query = "SELECT * FROM users WHERE email = ? and password = ?"
+    result = cursor.execute(query, (email, password)).fetchall()
+    if result:
+        return f"Login Successful!"
+    else:
+        return f"Invalid Credentials!"
 
 if __name__ == "__main__":
     app.run(debug=True)

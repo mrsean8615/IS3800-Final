@@ -25,14 +25,19 @@
       </nav>
     </header>
     <main>
-      <h3>{% if loggedIn %}
-        Welcome {{message}}
-        {% endif %}
-       </h3>
-       <h4>Random Text</h4>
-       <p>
-        This is the page for showcasing SQL injection attacks.
-       </p>
+       <h1>SQL Injection Examples</h1>
+       <h2>Bad Example</h2>
+       <form action="/injection_bad" method="POST">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+       </form>
+       <h2>Good Example</h2>
+       <form action="/injection_good" method="POST">
+        <input type="text" name="email" placeholder="Email">
+        <input type="password" name="password" placeholder="Password">
+        <button type="submit">Login</button>
+       </form>
     </main>
     <footer>
       {% if loggedIn %}

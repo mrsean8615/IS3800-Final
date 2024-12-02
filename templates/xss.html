@@ -25,32 +25,19 @@
       </nav>
     </header>
     <main>
-      <h3>{% if loggedIn %}
-        Welcome {{message}}
-        {% endif %}
-       </h3>
-       <h4>Random Text</h4>
-       <p>
-        This is the page for showcasing prevention methods for XSS attacks.
-       </p>
-       <div>
-        <p>
-            Below is an example of text input vulnerable to a XSS attack:
-        </p>
-        <form action="/xss_bad" method="POST">
-            <label for="comment">Enter Comment:</label>
-            <input type="text" id="comment" name="comment">
-            <button type="submit">Submit</button>
-        </form>
-        <p>
-            Below is an example of text input that is sanitized and not vulnerable to an XSS attack.
-        </p>
-        <form action="/xss_good" method="POST">
-            <label for="comment">Enter Comment:</label>
-            <input type="text" id="comment" name="comment">
-            <button type="submit">Submit</button>
-        </form>
-       </div>
+      <h1>XSS Examples</h1>
+      <h2>Bad Example</h2>
+      <form action="/xss_bad" method="POST">
+        <label for="comment">Enter Comment:</label>
+        <input type="text" id="comment" name="comment">
+        <button type="submit">Submit</button>
+      </form>
+      <h2>Good Example</h2>
+      <form action="/xss_good" method="POST">
+        <label for="comment">Enter Comment:</label>
+        <input type="text" id="comment" name="comment">
+        <button type="submit">Submit</button>
+      </form>
     </main>
     <footer>
       {% if loggedIn %}

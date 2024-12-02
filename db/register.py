@@ -1,10 +1,10 @@
-from db.db import db
+from db.db import dbConnect
 from werkzeug.security import generate_password_hash
 
 def register_user(fname, lname, age, email, password):
     try:
 
-        conn, cursor = db()
+        conn, cursor = dbConnect()
 
         hashed_password = generate_password_hash(password)
 

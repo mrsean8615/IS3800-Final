@@ -1,10 +1,10 @@
-from db.db import db
+from db.db import dbConnect
 from werkzeug.security import check_password_hash
 
 
 
 def login_user(email, password):
-        conn, cursor = db()
+        conn, cursor = dbConnect()
 
         query = """
         SELECT * FROM users

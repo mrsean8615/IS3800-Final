@@ -1,6 +1,6 @@
-from db import db
+from db import dbConnect
 
-conn, cursor = db()
+conn, cursor = dbConnect()
 
 cursor.execute("""
 SELECT * from users;

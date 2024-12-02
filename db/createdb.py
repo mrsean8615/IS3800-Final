@@ -1,5 +1,5 @@
-from db import db
-conn, cursor = db()
+from db.db import dbConnect
+conn, cursor = dbConnect()
 
 
 def createDB():
