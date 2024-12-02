@@ -28,9 +28,9 @@ body {
   color: black;
   background-color: #d9dcd6;
 }
-a:link,
-a:active,
-a:visited {
+.nav a:link,
+.nav a:active,
+.nav a:visited {
   color: white;
 }
 
@@ -64,7 +64,7 @@ a:visited {
 
 #account-form input {
   width: 100%;
-  padding: 10px;
+  padding: 5px;
   font-size: 14px;
   border: 1px solid #ddd;
   border-radius: 4px;
@@ -97,6 +97,12 @@ a:visited {
   background-color: #21618c;
 }
 
+.error {
+  color: red;
+  text-align: center;
+  display: block;
+}
+
 @media (max-width: 500px) {
   #account-form {
     padding: 15px;
@@ -105,4 +111,19 @@ a:visited {
   #account-form h2 {
     font-size: 20px;
   }
+}
+
+#logout {
+  position: fixed;
+  bottom: 10px;
+  right: 10px;
+  width: 100px;
+  border: none;
+  background-color: #16425b;
+  color: white;
+  height: 35px;
+}
+#logout:hover {
+  background-color: #00a6fb;
+  color: white;
 }

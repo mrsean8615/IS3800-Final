@@ -1,27 +1,44 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, session, redirect, url_for
 from markupsafe import Markup
-from register import register_user
+from db.register import register_user
+from db.login import login_user
+from test_input import regex_email, regex_password   
 
 app = Flask(__name__)
 
-def register_data(fname, lname, age, email, password, confirmPassword):
+app.secret_key = 'super_secret'
 
+def logout():
+    session.pop('loggedIn', None)
+    session.pop('email', None)
+    return redirect(url_for('home'))
 
-    # if password != confirmPassword:
-    #     return 'Passwords don\'t match'
-    
-    register_user(fname, lname, age, email, password)
-    
-
-
-
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def home():
-    title = 'IS3800 Final Project'
-    return render_template('index.html', title = title)
 
-@app.route('/login')
+    if request.method == 'POST':
+        logout()
+    title = 'IS3800 Final Project'
+    message = session.get('email', '')
+    return render_template('index.html', title = title, message = message, loggedIn = session.get('loggedIn', False))
+
+@app.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == 'POST':
+        email = request.form.get('email')
+        password = request.form.get('password')
+
+        if not login_user(email, password):
+            return render_template(
+                'login.html',
+                message = "Login credentials not valid.",
+                email=email
+            )
+        else: 
+            session['loggedIn'] = True
+            session['email'] = email
+            return redirect(url_for('home'))
+
     title = 'Login'
     return render_template('login.html', title = title)
 
@@ -33,10 +50,42 @@ def register():
         age = request.form.get('age')
         email = request.form.get('email')
         password = request.form.get('password')
-        confirmPassword = request.form.get('confirmPassword')
+        confirmPassword = request.form.get('confirm-password')
 
-        register_data(fname, lname, age, email, password, confirmPassword)
+        if not regex_email(email):
+            return render_template(
+                'register.html', 
+                message = "Email is not valid",
+                fname=fname,
+                lname=lname,
+                age=age,
+                email=email 
+            )
+        
+        if not regex_password(password):
+            return render_template(
+                'register.html', 
+                message = "Password is not strong enough",
+                fname=fname,
+                lname=lname,
+                age=age,
+                email=email 
+            )
 
+        if password != confirmPassword:
+            return render_template(
+                'register.html', 
+                message = "Password don't match",
+                fname=fname,
+                lname=lname,
+                age=age,
+                email=email 
+            )
+
+        if register_user(fname, lname, age, email, password):
+            session['loggedIn'] = True
+            session['email'] = email
+            return redirect(url_for('home'))
 
     title = 'Register'
     return render_template('register.html', title = title)

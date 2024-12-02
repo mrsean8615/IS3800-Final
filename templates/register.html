@@ -13,34 +13,42 @@
     <header>
         <nav>
             <div class="nav">
-              <a href="{{ url_for('home') }}">Home</a>     
-              <a href="{{ url_for('login') }}">Login</a> 
-              <a href="{{ url_for('register') }}">Register</a> 
-            </div>
+                <a href="{{ url_for('home') }}">Home</a>  
+                {% if not loggedIn %}
+                  <a href="{{ url_for('login') }}">Login</a> 
+                  <a href="{{ url_for('register') }}">Register</a> 
+      
+                {% else %}
+                  <form method="post">
+                    <button type="submit">Logout</button>
+                  </form>
+                {% endif %}
+      
+              </div>
           </nav>
     </header>
     <main>
         <form id="account-form" action="{{ url_for('register') }}" method="POST">
             <h2>Create Account</h2>
-        
+            <span class="error">{{message}}</span>
             <div class="form-group">
                 <label for="fname">First Name:</label>
-                <input type="text" id="fname" name="fname" required>
+                <input type="text" id="fname" value="{{fname or ''}}" name="fname" required>
             </div>
         
             <div class="form-group">
                 <label for="lname">Last Name:</label>
-                <input type="text" id="lname" name="lname" required>
+                <input type="text" id="lname" value="{{lname or ''}}" name="lname" required>
             </div>
         
             <div class="form-group">
                 <label for="age">Age:</label>
-                <input type="number" id="age" name="age" required>
+                <input type="number" value="{{age or ''}}" id="age" name="age" required>
             </div>
         
             <div class="form-group">
                 <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="text" value="{{email or ''}}" id="email" name="email" required>
             </div>
         
             <div class="form-group">
@@ -54,9 +62,17 @@
             </div>
         
             <button type="submit" class="submit-btn">Submit</button>
+            <a style="text-align: center; display: block;" href="{{url_for('login')}}">Have have an account? Click here.</a>
+
         </form>
         
     </main>
-    <footer></footer>
+    <footer>
+        {% if loggedIn %}
+        <form method="post">
+          <button id="logout" type="submit">Logout</button>
+        </form>
+        {% endif %}
+      </footer>
   </body>
 </html>
