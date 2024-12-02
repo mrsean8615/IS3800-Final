@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, session, redirect, url_for
 from markupsafe import Markup, escape
 from db.register import register_user
 from db.login import login_user
+from db.db import db
 from test_input import regex_email, regex_password
 
 app = Flask(__name__)
@@ -114,9 +115,44 @@ def xss_good():
 def injection():
     if request.method == 'POST':
         logout()
-    title = 'XSS Prevention'
-    message = session.get('email', '')
-    return render_template('injection.html', title = title, message = message, loggedIn = session.get('loggedIn', False))
+    title = 'SQL Injection'
+    return render_template('injection.html', title = title, loggedIn = session.get('loggedIn', False))
+
+@app.route('/injection_bad', methods=['POST'])
+def injection_bad():
+    conn, cursor = db()
+    email = request.form['email']
+    password = request.form['password']
+    query = f"SELECT * FROM users WHERE email = '{email}' AND password = '{password}'"
+    result = cursor.execute(query).fetchall()
+
+    print("Query Executed: ", query)
+    print("Result: ", result)
+
+    if result:
+        message = "Login Successful!"
+        return render_template('injection.html', badmessage=message, loggedIn = session.get('loggedIn', False))
+
+    else:
+        message = "Invalid Credentials!"
+        return render_template('injection.html', badmessage=message, loggedIn = session.get('loggedIn', False))
+
+
+@app.route('/injection_good', methods=['POST'])
+def injection_good():
+    conn, cursor = db()
+    email = request.form['email']
+    password = request.form['password']
+    query = "SELECT * FROM users WHERE email = ? and password = ?"
+    result = cursor.execute(query, (email, password)).fetchall()
+    if result:
+        message = f"Login Successful!"
+        return render_template('injection.html', message=message, loggedIn = session.get('loggedIn', False))
+
+    else:
+        message = f"Invalid Credentials!"
+        return render_template('injection.html', message=message, loggedIn = session.get('loggedIn', False))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

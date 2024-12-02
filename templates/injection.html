@@ -25,16 +25,50 @@
         </div>
       </nav>
     </header>
-    <main>
-      <h3>{% if loggedIn %}
-        Welcome {{message}}
-        {% endif %}
-       </h3>
-       <h4>Random Text</h4>
-       <p>
-        This is the page for showcasing SQL injection attacks.
-       </p>
+    <main id="sql-injection-showcase">
+      <h3 class="header">SQL Injection Examples</h3>
+      <p class="description">
+        This page demonstrates examples of SQL injection vulnerabilities and prevention methods.
+      </p>
+      
+      <!-- Bad Example Section -->
+      <div class="example-section bad-example">
+        <p class="example-intro">
+          Below is an example of a vulnerable login form that is susceptible to SQL injection:
+        </p>
+        <form class="example-form vulnerable-form" action="/injection_bad" method="POST">
+          <label class="form-label" for="bad-email">Email:</label>
+          <input class="form-input" type="text" id="bad-email" name="email">
+          <label class="form-label" for="bad-password">Password:</label>
+          <input class="form-input" type="password" id="bad-password" name="password">
+          <button class="form-button" type="submit">Login</button>
+          <p class="try-this">Try this is password field: ' OR '1'='1' --</p>
+        </form>
+        <p class="example-intro">
+          In the bad example above, SQL injection could be used to bypass the login check.
+        </p>
+        <p class="error-message">{{ badmessage }}</p>
+      </div>
+      
+      <!-- Good Example Section -->
+      <div class="example-section good-example">
+        <p class="example-intro">
+          Below is a secure login form with SQL injection prevention:
+        </p>
+        <form class="example-form secure-form" action="/injection_good" method="POST">
+          <label class="form-label" for="good-email">Email:</label>
+          <input class="form-input" type="text" id="good-email" name="email">
+          <label class="form-label" for="good-password">Password:</label>
+          <input class="form-input" type="password" id="good-password" name="password">
+          <button class="form-button" type="submit">Login</button>
+          {% if message %}
+            <p class="user-message">{{ message }}</p>
+          {% endif %}
+        </form>
+      </div>
     </main>
+    
+    
     <footer>
       {% if loggedIn %}
       <form method="post">
