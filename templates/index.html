@@ -12,27 +12,68 @@
   <body>
     <header>
       <nav>
-        <div class="nav">
-          <a href="{{ url_for('home') }}">Home</a>  
-          <a href="{{ url_for('xss') }}">XSS Prevention</a>
-          <a href="{{ url_for('injection') }}">SQL Injection</a>
-          {% if not loggedIn %}
-            <a href="{{ url_for('login') }}">Login</a> 
-            <a href="{{ url_for('register') }}">Register</a> 
+        <div class="nav-container">
+          <a class="nav-link" href="{{ url_for('home') }}">Home</a>  
+          {% if loggedIn %}
+            <a class="nav-link" href="{{ url_for('xss') }}">XSS Prevention</a>
+            <a class="nav-link" href="{{ url_for('injection') }}">SQL Injection</a>
           {% endif %}
-
+          {% if not loggedIn %}
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a> 
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a> 
+          {% endif %}
         </div>
       </nav>
     </header>
-    <main>
-      <h3>{% if loggedIn %}
-        Welcome {{message}}
-        {% endif %}
-       </h3>
-       <h4>Random Text</h4>
-       <p>
-        Contrary to popular belief, Lorem Ipsum is not simply random text. It has roots in a piece of classical Latin literature from 45 BC, making it over 2000 years old. Richard McClintock, a Latin professor at Hampden-Sydney College in Virginia, looked up one of the more obscure Latin words, consectetur, from a Lorem Ipsum passage, and going through the cites of the word in classical literature, discovered the undoubtable source. Lorem Ipsum comes from sections 1.10.32 and 1.10.33 of "de Finibus Bonorum et Malorum" (The Extremes of Good and Evil) by Cicero, written in 45 BC. This book is a treatise on the theory of ethics, very popular during the Renaissance. The first line of Lorem Ipsum, "Lorem ipsum dolor sit amet..", comes from a line in section 1.10.32.
-       </p>
+    <main id="dashboard-main">
+      {% if loggedIn %}
+        <!-- System Overview -->
+        <section class="overview-section">
+          <h3>Welcome, {{ message }}!</h3>
+          <p>Here’s your system’s current security overview.</p>
+        </section>
+  
+        <!-- Threat Monitoring -->
+        <section class="threat-monitoring">
+          <h4>Active Threats</h4>
+          <div class="threat-card">
+            <p><strong>Malicious Login Attempts:</strong> 12</p>
+            <p><strong>Suspicious IP Addresses:</strong> 4</p>
+            <p><strong>Blocked Attacks:</strong> 23</p>
+          </div>
+        </section>
+  
+        <!-- Security Status -->
+        <section class="security-status">
+          <div class="status-card">
+            <h5>Firewall</h5>
+            <div class="status-indicator green">Active</div>
+          </div>
+          <div class="status-card">
+            <h5>Antivirus</h5>
+            <div class="status-indicator yellow">Scanning</div>
+          </div>
+          <div class="status-card">
+            <h5>Data Encryption</h5>
+            <div class="status-indicator red">Inactive</div>
+          </div>
+        </section>
+  
+        <!-- Latest Security Alerts -->
+        <section class="alerts-section">
+          <h4>Latest Alerts</h4>
+          <ul class="alert-list">
+            <li><strong>Critical:</strong> New vulnerability in Apache HTTP Server. Patch available.</li>
+            <li><strong>Warning:</strong> Multiple failed login attempts from IP 192.168.1.1.</li>
+            <li><strong>Notice:</strong> SSL certificate expiring soon. Renewal required.</li>
+          </ul>
+        </section>
+      {% else %}
+        <section class="welcome-section">
+          <h3>Welcome to the Cybersecurity Dashboard!</h3>
+          <p>Please <a href="{{ url_for('login') }}">login</a> or <a href="{{ url_for('register') }}">register</a> to continue.</p>
+        </section>
+      {% endif %}
     </main>
     <footer>
       {% if loggedIn %}

@@ -11,10 +11,11 @@ app = Flask(__name__)
 
 app.secret_key = 'super_secret'
 
+@app.route('/logout')
 def logout():
-    session.pop('loggedIn', None)
-    session.pop('email', None)
-    return redirect(url_for('home'))
+    session.clear()
+    response = redirect(url_for('home'))
+    return response
 
 @app.route("/", methods=['GET', 'POST'])
 def home():
@@ -95,6 +96,8 @@ def register():
 
 @app.route('/xss', methods=['GET', 'POST'])
 def xss():
+    if request.method == 'POST':
+        logout()
     title = 'XSS Prevention'
     return render_template('xss.html', title = title, loggedIn = session.get('loggedIn', False))
 
@@ -107,7 +110,8 @@ def xss_bad():
 def xss_good():
     comment = request.form['comment']
     safeComment = escape(comment)
-    return f"{safeComment}"
+    title = 'XSS Prevention'
+    return render_template('xss.html', message=safeComment, title=title, loggedIn = session.get('loggedIn', False))
 
 @app.route('/injection', methods=['GET', 'POST'])
 def injection():

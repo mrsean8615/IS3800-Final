@@ -12,17 +12,19 @@
   <body>
     <header>
       <nav>
-        <div class="nav">
-          <a href="{{ url_for('home') }}">Home</a>  
-          <a href="{{ url_for('xss') }}">XSS Prevention</a>
-          <a href="{{ url_for('injection') }}">SQL Injection</a>
-          {% if not loggedIn %}
-            <a href="{{ url_for('login') }}">Login</a> 
-            <a href="{{ url_for('register') }}">Register</a> 
+        <div class="nav-container">
+          <a class="nav-link" href="{{ url_for('home') }}">Home</a>  
+          {% if loggedIn %}
+            <a class="nav-link" href="{{ url_for('xss') }}">XSS Prevention</a>
+            <a class="nav-link" href="{{ url_for('injection') }}">SQL Injection</a>
           {% endif %}
-
+          {% if not loggedIn %}
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a> 
+            <a class="nav-link" href="{{ url_for('register') }}">Register</a> 
+          {% endif %}
         </div>
       </nav>
+      
     </header>
     <main>
       <h1>XSS Examples</h1>
@@ -39,6 +41,7 @@
         <button type="submit">Submit</button>
       </form>
     </main>
+    
     <footer>
       {% if loggedIn %}
       <form method="post">
