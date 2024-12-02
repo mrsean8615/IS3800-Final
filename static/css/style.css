@@ -136,12 +136,12 @@ body {
   right: 10px;
   width: 100px;
   border: none;
-  background-color: #16425b;
+  background-color: #3498db;
   color: white;
   height: 35px;
 }
 #logout:hover {
-  background-color: #00a6fb;
+  background-color: #2980b9;
   color: white;
 }
 
@@ -259,7 +259,7 @@ body {
 
 .overview-section h3 {
   font-size: 2rem;
-  color: #4caf50;
+  color: #3498db;
   margin-bottom: 10px;
 }
 
@@ -369,30 +369,30 @@ body {
 
 .welcome-section h3 {
   font-size: 2rem;
-  color: #4caf50; /* Green color for welcome message */
+  color: #3498db;
   margin-bottom: 20px;
   font-weight: 600;
 }
 
 .welcome-section p {
   font-size: 1.1rem;
-  color: #555; /* Slightly dark gray for the text */
+  color: #555;
   margin-bottom: 20px;
 }
 
 .welcome-section a {
-  color: #4caf50; /* Match with green theme */
+  color: #3498db;
   text-decoration: none;
   font-weight: 500;
 }
 
 .welcome-section a:hover {
-  color: #388e3c; /* Darker green on hover */
+  color: #2980b9;
   text-decoration: underline;
 }
 
 .welcome-section a:active {
-  color: #2c6e2f; /* Even darker green when clicked */
+  color: #21618c;
 }
 
 /* Responsive Design */
